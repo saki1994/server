@@ -25,7 +25,8 @@ mongoose
 
 const dailySchema = new mongoose.Schema({
   polish: String,
-  english: String,
+  english: String, 
+  dateAdded: String,
   wordStatus: {
     hasTested: Boolean,
     repeated: Boolean,
@@ -41,7 +42,9 @@ app
   .get((req, res) => {
     Daily.find({}, (err, foundWords) => {
       res.send(foundWords);
-    });
+    }); 
+
+    
   })
 
   .patch((req, res) => {
@@ -61,13 +64,20 @@ app
   })
 
   .post((req, res) => {
+    const fullDate = new Date();
+    const  date = fullDate.getDate();
+    const  month = fullDate.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
+    const  year = fullDate.getFullYear();
+
+    const dateAdded = date + "/" + month + "/" + year;
+
     const { polish, english, wordStatus } = req.body;
 
     Daily.findOne({ english: english }, (err, foundWord) => {
       if (foundWord) {
         res.send({ message: "The sentence already exist" });
       } else {
-        const foundWord = new Daily({ polish, english, wordStatus });
+        const foundWord = new Daily({ polish, english, wordStatus, dateAdded });
         foundWord.save((err) => {
           if (err) {
             res.send(err);
