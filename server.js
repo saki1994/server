@@ -28,7 +28,7 @@ const languages = new mongoose.Schema({
   english: String,
   dateAdded: String,
   wordStatus: {
-    hasTested: Boolean,
+    memorize: Boolean,
     repeated: Boolean,
     timesRepeated: Number,
   },
