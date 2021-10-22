@@ -23,9 +23,9 @@ mongoose
 
 //user Schema
 
-const dailySchema = new mongoose.Schema({
+const languages = new mongoose.Schema({
   polish: String,
-  english: String, 
+  english: String,
   dateAdded: String,
   wordStatus: {
     hasTested: Boolean,
@@ -34,7 +34,7 @@ const dailySchema = new mongoose.Schema({
   },
 });
 
-const Daily = new mongoose.model("Language", dailySchema);
+const Daily = new mongoose.model("Daily", languages);
 
 app
   .route("/")
@@ -42,9 +42,7 @@ app
   .get((req, res) => {
     Daily.find({}, (err, foundWords) => {
       res.send(foundWords);
-    }); 
-
-    
+    });
   })
 
   .patch((req, res) => {
@@ -65,9 +63,9 @@ app
 
   .post((req, res) => {
     const fullDate = new Date();
-    const  date = fullDate.getDate();
-    const  month = fullDate.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
-    const  year = fullDate.getFullYear();
+    const date = fullDate.getDate();
+    const month = fullDate.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
+    const year = fullDate.getFullYear();
 
     const dateAdded = date + "/" + month + "/" + year;
 
