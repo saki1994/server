@@ -56,9 +56,9 @@ app
   })
 
   .delete((req, res) => {
-    Daily.deleteOne({ id: req.body._id }, (err) => {
-      !err && console.log("Successfully deleted");
-    });
+    Daily.deleteOne({_id: req.body._id}, (err => {
+      !err && console.log('deleted ' + req.body._id)
+    }))
   })
 
   .post((req, res) => {
